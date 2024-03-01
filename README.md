@@ -19,9 +19,12 @@
 ## 技术栈
 
 * 服务端
+
 - 相关技术：Spring boot、MyBatis、Spring Security、Jwt、Mysql、Redis、TDengine、EMQX、Netty等
 - 开发工具：IDEA
+
 * Web端
+
 - 相关技术：ES6、Vue、Vuex、Vue-router、Vue-cli、Axios、Element-ui、Echart等
 - 开发工具：Visual Studio Code
 * 移动端（微信小程序 / Android / Ios / H5）
@@ -30,3 +33,12 @@
 * 硬件端
 - 相关技术： ESP-IDF、Arduino、FreeRTOS、Python、Lua等
 - 开发工具：Visual Studio Code 和 Arduino等
+
+![image](https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/27852925-ca9a-4ceb-b385-9417afddadf1)
+
+- docker部署文件
+- Mqtt消息服务器使用EMQX5.0开源版
+
+
+
+
