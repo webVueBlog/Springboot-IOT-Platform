@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>webVueBlog-protocol</artifactId>
+        <groupId>com.webVueBlog</groupId>
+        <version>3.8.5</version>
+    </parent>
+
+    <description>网关协议管理模块</description>
+
+    <artifactId>webVueBlog-protocol-base</artifactId>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.webVueBlog</groupId>
+            <artifactId>webVueBlog-iot-service</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.webVueBlog</groupId>
+            <artifactId>base-server</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+
+</project>
