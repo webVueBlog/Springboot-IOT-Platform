@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * annotation表示一个注解，用于在类、方法、字段上使用，以达到某种目的。
  * 报文解析字段注解
  */
 @Target(ElementType.FIELD)
