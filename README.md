@@ -18,6 +18,9 @@
 - server    --------------- 传输层服务端 （netty-mqtt,tcp,udp,sip,coap）
 - service   -------------- 核心业务处理<br/>
 
+<img width="295" alt="image" src="https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/0c5c3332-7cbc-41ab-88a4-beab21b05c98">
+
+
 <img width="1512" alt="image" src="https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/d31df67c-b328-4526-bae0-16e2b4f29288">
 
 <img width="1512" alt="image" src="https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/4d26a55f-b933-4fba-a024-e95c14c5d385">
