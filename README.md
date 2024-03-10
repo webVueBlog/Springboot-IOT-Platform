@@ -1,6 +1,23 @@
 
 # 物联网平台
 
+- 网关协议管理模块
+- 设备协议模块
+- modbus消息解码
+- 服务集成模块(服务基础模块 服务启动模块 服务启动模块 服务核心，tcp udp服务搭建模块)
+
+### 一、项目目录
+
+- admin     ------------- 主程序入口
+- common    ---------- 公共模块
+- framework -------- 开发框架
+- gateway   ----------- 消息通道转发<br/>
+- open-api  ---------- 系统开放接口
+- plugs     --------------- 拓展插件<br/>
+- protocol  ------------ 编解码协议
+- server    --------------- 传输层服务端 （netty-mqtt,tcp,udp,sip,coap）
+- service   -------------- 核心业务处理<br/>
+
 <img width="1512" alt="image" src="https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/d31df67c-b328-4526-bae0-16e2b4f29288">
 
 <img width="1512" alt="image" src="https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/4d26a55f-b933-4fba-a024-e95c14c5d385">
@@ -62,18 +79,6 @@ Graphite: Graphite 是一个开源的监控工具和时序数据库，主要用�
 
 - 相关技术： ESP-IDF、Arduino、FreeRTOS、Python、Lua等
 - 开发工具：Visual Studio Code 和 Arduino等
-
-### 一、项目目录
-
-- admin     ------------- 主程序入口
-- common    ---------- 公共模块
-- framework -------- 开发框架
-- gateway   ----------- 消息通道转发<br/>
-- open-api  ---------- 系统开放接口
-- plugs     --------------- 拓展插件<br/>
-- protocol  ------------ 编解码协议
-- server    --------------- 传输层服务端 （netty-mqtt,tcp,udp,sip,coap）
-- service   -------------- 核心业务处理<br/>
 
 ![image](https://github.com/webVueBlog/Springboot-IOT-Platform/assets/59645426/27852925-ca9a-4ceb-b385-9417afddadf1)
 
