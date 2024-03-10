@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webVueBlog.iot.tdengine.dao.TDDeviceLogDAO">
+
+    <resultMap type="com.webVueBlog.iot.model.MonitorModel" id="MonitorResult">
+        <result property="value"    column="log_value"    />
+        <result property="time"    column="ts"    />
+    </resultMap>
+
+    <resultMap type="com.webVueBlog.iot.domain.DeviceLog" id="DeviceLogResult">
+        <result property="logType"    column="log_type"    />
+        <result property="logValue"    column="log_value"    />
+        <result property="mode"    column="mode"    />
+        <result property="deviceId"    column="device_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="identity"    column="identity"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="isMonitor"    column="is_monitor"    />
+        <result property="createTime"    column="ts"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="tenantId"    column="tenant_id"    />
+        <result property="tenantName"    column="tenant_name"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap type="com.webVueBlog.iot.model.HistoryModel" id="HistoryResult">
+        <result property="value"    column="log_value"    />
+        <result property="time"    column="ts"    />
+        <result property="identity" column="identity" />
+    </resultMap>
+
+    <update id="createDB">
+        create database if not exists  ${database};
+    </update>
+
+    <update id="createSTable">
+        create STABLE  if not exists ${database}.device_log
+        (ts timestamp,
+        `log_value` BINARY(100),
+        is_monitor TINYINT,
+        log_type TINYINT,
+        `identity` BINARY(100),
+        mode TINYINT,
+        remark BINARY(500))
+
+        TAGS(serial_number BINARY(50));
+    </update>
+
+    <insert id="save" parameterType="com.webVueBlog.iot.domain.DeviceLog">
+        INSERT INTO ${database}.device_${device.serialNumber} USING  device_log
+        TAGS (#{device.serialNumber})
+        VALUES (now,
+            #{device.logValue},
+            #{device.isMonitor},
+            #{device.logType},
+            #{device.identity},
+            #{device.mode},
+            #{device.remark});
+    </insert>
+
+    <insert id="saveBatch" parameterType="com.webVueBlog.iot.tdengine.service.model.TdLogDto">
+        insert into ${database}.device_${data.serialNumber} using device_log
+        TAGS (#{data.serialNumber})
+        VALUES
+        <foreach collection="data.list" separator=" " item="device" index="index">
+            (now,
+            #{device.logValue},
+            #{device.isMonitor},
+            #{device.logType},
+            #{device.identity},
+            #{device.mode},
+            #{device.remark})
+        </foreach>
+    </insert>
+
+    <delete id="deleteDeviceLogByDeviceNumber" parameterType="com.webVueBlog.iot.domain.DeviceLog">
+        DROP TABLE IF EXISTS ${database}.device_${serialNumber};
+    </delete>
+
+    <select id="selectPropertyLogCount" parameterType="com.webVueBlog.iot.domain.Device" resultType="Long">
+        select count(mode) as propertyCount
+        from ${database}.device_log
+        where log_type=1
+    </select>
+
+    <select id="selectFunctionLogCount" parameterType="com.webVueBlog.iot.domain.Device" resultType="Long">
+        select count(mode) as functionCount
+        from ${database}.device_log
+        where log_type=2
+    </select>
+
+    <select id="selectEventLogCount" parameterType="com.webVueBlog.iot.domain.Device" resultType="Long">
+        select count(mode) as eventCount
+        from ${database}.device_log
+        where log_type=3
+    </select>
+
+    <select id="selectMonitorLogCount" parameterType="com.webVueBlog.iot.domain.Device" resultType="Long">
+        select count(mode) as monitorCount
+        from ${database}.device_log
+        where log_type=1 and is_monitor=1
+    </select>
+
+    <select id="selectMonitorList" parameterType="com.webVueBlog.iot.domain.DeviceLog" resultMap="MonitorResult">
+        select log_value, ts from ${database}.device_log
+        <where>
+             is_monitor=1
+            <if test="device.serialNumber != null and device.serialNumber !=''"> and serial_number = #{device.serialNumber}</if>
+            <if test="device.identity != null  and device.identity != ''"> and identity like  #{device.identity}</if>
+            <if test="device.beginTime != null and device.beginTime != '' and device.endTime != null and device.endTime != ''"> and ts between #{device.beginTime} and #{device.endTime}</if>
+        order by ts desc
+        limit #{device.total}
+        </where>
+    </select>
+
+    <select id="selectDeviceLogList" parameterType="com.webVueBlog.iot.domain.DeviceLog" resultMap="DeviceLogResult">
+        select * from ${database}.device_log
+        <where>
+            <if test="device.isMonitor != null"> and is_monitor = #{device.isMonitor}</if>
+            <if test="device.serialNumber != null and device.serialNumber !=''"> and serial_number = #{device.serialNumber}</if>
+            <if test="device.logType != null "> and log_type = #{device.logType}</if>
+            <if test="device.identity != null  and device.identity != ''"> and identity like #{device.identity}</if>
+        </where>
+        order by ts desc
+    </select>
+
+    <select id="selectHistoryList" parameterType="com.webVueBlog.iot.domain.DeviceLog" resultMap="HistoryResult">
+        select log_value,
+               ts,
+               identity
+        from ${database}.device_log
+        <where>
+        <if test="device.beginTime != null and device.beginTime != '' and device.endTime != null and device.endTime != ''">
+            and ts between #{device.beginTime} and #{device.endTime}
+        </if>
+            <if test="device.serialNumber != null and device.serialNumber !=''"> and serial_number = #{device.serialNumber}</if>
+        </where>
+        order by ts desc
+    </select>
+</mapper>

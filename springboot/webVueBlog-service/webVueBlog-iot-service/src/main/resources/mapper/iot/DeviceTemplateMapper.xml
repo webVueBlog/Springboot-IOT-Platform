@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webVueBlog.iot.mapper.DeviceTemplateMapper">
+    
+    <resultMap type="DeviceTemplate" id="DeviceTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="templateId"    column="template_id"    />
+    </resultMap>
+
+    <sql id="selectDeviceTemplateVo">
+        select id, product_id, template_id from iot_device_template
+    </sql>
+
+    <select id="selectDeviceTemplateList" parameterType="DeviceTemplate" resultMap="DeviceTemplateResult">
+        <include refid="selectDeviceTemplateVo"/>
+        <where>  
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="templateId != null "> and template_id = #{templateId}</if>
+        </where>
+    </select>
+    
+    <select id="selectDeviceTemplateById" parameterType="Long" resultMap="DeviceTemplateResult">
+        <include refid="selectDeviceTemplateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDeviceTemplate" parameterType="DeviceTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into iot_device_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="templateId != null">template_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="templateId != null">#{templateId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDeviceTemplate" parameterType="DeviceTemplate">
+        update iot_device_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="templateId != null">template_id = #{templateId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDeviceTemplateById" parameterType="Long">
+        delete from iot_device_template where id = #{id}
+    </delete>
+
+    <delete id="deleteDeviceTemplateByIds" parameterType="String">
+        delete from iot_device_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectDeviceTemplateByProduct" parameterType="Long" resultMap="DeviceTemplateResult">
+        <include refid="selectDeviceTemplateVo"/>
+        where product_id = #{productId,jdbcType=BIGINT}
+    </select>
+</mapper>
