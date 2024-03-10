@@ -7,16 +7,11 @@
         <groupId>com.webVueBlog</groupId>
         <version>3.8.5</version>
     </parent>
-    <description>网关协议管理模块</description>
-    <artifactId>webVueBlog-protocol-base</artifactId>
+    <artifactId>webVueBlog-protocol-collect</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.webVueBlog</groupId>
-            <artifactId>webVueBlog-iot-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.webVueBlog</groupId>
-            <artifactId>base-server</artifactId>
+            <artifactId>webVueBlog-protocol-base</artifactId>
         </dependency>
     </dependencies>
 </project>

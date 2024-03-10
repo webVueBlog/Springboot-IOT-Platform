@@ -3,20 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>webVueBlog-protocol</artifactId>
+        <artifactId>webVueBlog</artifactId>
         <groupId>com.webVueBlog</groupId>
         <version>3.8.5</version>
     </parent>
-    <description>网关协议管理模块</description>
-    <artifactId>webVueBlog-protocol-base</artifactId>
+    <artifactId>webVueBlog-protocol</artifactId>
+    <description>设备协议模块</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>webVueBlog-protocol-base</module>
+        <module>webVueBlog-protocol-collect</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>com.webVueBlog</groupId>
-            <artifactId>webVueBlog-iot-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.webVueBlog</groupId>
-            <artifactId>base-server</artifactId>
+            <artifactId>webVueBlog-common</artifactId>
         </dependency>
     </dependencies>
 </project>
